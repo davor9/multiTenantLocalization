@@ -1,6 +1,7 @@
 package com.example.demo;
 
 import jakarta.validation.MessageInterpolator;
+import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.MessageSource;
 import org.springframework.context.MessageSourceResolvable;
@@ -19,8 +20,8 @@ import java.util.Map;
 @RequiredArgsConstructor
 public class Conf {
 
-    private final TenantMessageSource tenantMessageSource;
-   // private final MessageInterpolator tenantAwareMessageInterpolator;
+    private final MessageSource messageSource;
+    private final MessageInterpolator tenantAwareMessageInterpolator;
 
 
 //    @Bean
@@ -93,11 +94,13 @@ public class Conf {
     }
 
     @Bean
-    public LocalValidatorFactoryBean getValidator() {
+    public Validator validator() {
         LocalValidatorFactoryBean validatorFactoryBean = new LocalValidatorFactoryBean();
-        validatorFactoryBean.setValidationMessageSource(tenantMessageSource);
-        //validatorFactoryBean.setMessageInterpolator(tenantAwareMessageInterpolator);
+        validatorFactoryBean.setMessageInterpolator(tenantAwareMessageInterpolator);
+        validatorFactoryBean.setValidationMessageSource(messageSource);
         return validatorFactoryBean;
     }
+
+
 
 }

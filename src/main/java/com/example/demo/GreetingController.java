@@ -25,6 +25,7 @@ public class GreetingController {
     public String greet(@RequestBody @Validated Request test) {
         var locale = LocaleContextHolder.getLocale();
         var tenant = TenantContext.getCurrentTenant();
+        System.out.println("LOOOOOL");
         return wtf.getMessage("greeting", null, locale);
     }
 

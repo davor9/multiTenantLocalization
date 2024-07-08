@@ -11,7 +11,6 @@ import java.util.Locale;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-@Component
 public class TenantMessageSource implements MessageSource {
 
     private static final String DEFAULT_BASENAME = "classpath:/i18n/default/messages";
@@ -63,7 +62,7 @@ public class TenantMessageSource implements MessageSource {
         ReloadableResourceBundleMessageSource tenantMessageSource = new ReloadableResourceBundleMessageSource();
         tenantMessageSource.setBasename(TENANT_BASENAME_PREFIX + tenantId + "/messages");
         tenantMessageSource.setDefaultEncoding("UTF-8");
-        tenantMessageSource.setCacheSeconds(3600);
+        tenantMessageSource.setCacheSeconds(-1);
 
         try {
             return tenantMessageSource.getMessage(code, args, locale);
